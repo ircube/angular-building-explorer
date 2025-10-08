@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { ThemeService } from '../theme.service'; // Import ThemeService
 
 @Component({
   selector: 'app-layout',
@@ -9,5 +10,13 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './layout.scss'
 })
 export class LayoutComponent {
+  constructor(private themeService: ThemeService) {}
 
+  toggleTheme(): void {
+    this.themeService.toggleTheme();
+  }
+
+  isDarkTheme(): boolean {
+    return this.themeService.getCurrentTheme() === 'dark';
+  }
 }

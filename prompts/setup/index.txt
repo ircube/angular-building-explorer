@@ -6,3 +6,4 @@ create a folder for pages on src\app and add landing, buildings, viewer, contact
 
 update router and app component to display a layout with tabs to access different pages.
 ---
+add light/dark themes, add switch icon to set theme near the tabs
