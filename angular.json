@@ -7,10 +7,7 @@
       "i18n": {
         "sourceLocale": "en-US",
         "locales": {
-          "es": {
-            "translation": "src/locale/messages.es.json",
-            "subPath": "es"
-          }
+          "es": "src/locale/messages.es.json"
         }
       },
       "projectType": "application",
@@ -26,6 +23,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": "dist/angular-building-explorer/browser",
             "localize": true,
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
