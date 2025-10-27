@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CounterService } from '../../stores/counter.service';
 
 @Component({
   selector: 'app-landing',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './landing.scss'
 })
 export class Landing {
-
+  protected readonly counterService = inject(CounterService);
 }

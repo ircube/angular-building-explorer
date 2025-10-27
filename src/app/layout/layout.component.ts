@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common'; // Import CommonModule
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeService } from '../theme.service'; // Import ThemeService
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive], // Add CommonModule here
   templateUrl: './layout.html',
   styleUrl: './layout.scss'
 })
