@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import CommonModule
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { ThemeService } from '../theme.service'; // Import ThemeService
@@ -11,7 +11,8 @@ import { ThemeService } from '../theme.service'; // Import ThemeService
   styleUrl: './layout.scss'
 })
 export class LayoutComponent {
-  constructor(private themeService: ThemeService) {}
+  private themeService = inject(ThemeService);
+
 
   toggleTheme(): void {
     this.themeService.toggleTheme();

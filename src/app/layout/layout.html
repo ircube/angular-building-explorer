@@ -5,7 +5,7 @@
     <a routerLink="/viewer" routerLinkActive="active" i18n>Viewer</a>
     <a routerLink="/contact" routerLinkActive="active" i18n>Contact</a>
   </div>
-  <button (click)="toggleTheme()" i18n>
+  <button (click)="toggleTheme()">
     <span *ngIf="isDarkTheme()" class="material-icons">dark_mode</span>
     <span *ngIf="!isDarkTheme()" class="material-icons">light_mode</span>
   </button>

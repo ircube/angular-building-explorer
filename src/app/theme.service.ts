@@ -1,4 +1,4 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2, inject } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,9 @@ export class ThemeService {
   private renderer: Renderer2;
   private currentTheme: 'light' | 'dark' = 'light';
 
-  constructor(rendererFactory: RendererFactory2) {
+  constructor() {
+    const rendererFactory = inject(RendererFactory2);
+
     this.renderer = rendererFactory.createRenderer(null, null);
     this.loadTheme();
   }
