@@ -26,6 +26,19 @@ For a complete list of available schematics (such as `components`, `directives`,
 ng generate --help
 ```
 
+## Internationalization
+Extract i18n:
+```bash
+ng extract-i18n --format=json --output-path src/locale
+```
+
+Serve:
+```bash
+ng serve --configuration=es
+```
+
+
+
 ## Building
 
 To build the project run:
