@@ -2,7 +2,6 @@
   "hosting": {
     "public": "dist/angular-building-explorer/browser",
     "ignore": [
-      "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
