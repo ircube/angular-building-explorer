@@ -1,5 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
+body {
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --background-color: #ffffff;
   --text-color: #000000;
@@ -8,10 +13,10 @@
 }
 
 body.dark-theme {
-  --background-color: #303030;
+  --background-color: #101010;
   --text-color: #ffffff;
-  --primary-color: #90caf9;
-  --accent-color: #ff80ab;
+  --primary-color: #014;
+  --accent-color: #ff4081;
 }
 
 body {
