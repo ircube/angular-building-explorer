@@ -6,15 +6,17 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    
     "rewrites": [
-      {
-        "source": "**",
-        "destination": "/en/index.html"
-      },
       {
         "source": "/es/**",
         "destination": "/es/index.html"
+      },
+      {
+        "source": "**",
+        "destination": "/en/index.html"
       }
     ]
+    
   }
 }

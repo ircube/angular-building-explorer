@@ -6,8 +6,8 @@
     <a routerLink="/contact" routerLinkActive="active" i18n>Contact</a>
   </div>
   <div class="right">
-    <button class="language-button" (click)="changeLanguage('en-US')">EN</button>
-    <button class="language-button" (click)="changeLanguage('es')">ES</button>
+    <button class="language-button" (click)="switchLanguage('en')">EN</button>
+    <button class="language-button" (click)="switchLanguage('es')">ES</button>
     <button (click)="toggleTheme()">
       <span *ngIf="isDarkTheme()" class="material-icons">dark_mode</span>
       <span *ngIf="!isDarkTheme()" class="material-icons">light_mode</span>
