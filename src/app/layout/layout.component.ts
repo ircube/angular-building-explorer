@@ -1,4 +1,4 @@
-import { Component, inject, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common'; // Import CommonModule and DOCUMENT
 import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router'; // Import Router
 import { ThemeService } from '../theme.service'; // Import ThemeService
@@ -11,9 +11,10 @@ import { ThemeService } from '../theme.service'; // Import ThemeService
   styleUrl: './layout.scss'
 })
 export class LayoutComponent {
+  private document = inject<Document>(DOCUMENT);
+
   private themeService = inject(ThemeService);
-  private router = inject(Router); // Inject Router
-  constructor(@Inject(DOCUMENT) private document: Document) {} // Inject DOCUMENT
+  private router = inject(Router); // Inject DOCUMENT
 
 
   toggleTheme(): void {

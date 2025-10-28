@@ -5,7 +5,7 @@
   "projects": {
     "angular-building-explorer": {
       "i18n": {
-        "sourceLocale": "en-US",
+        "sourceLocale": "en",
         "locales": {
           "es": "src/locale/messages.es.json"
         }
@@ -43,7 +43,7 @@
           },
           "configurations": {
             "production": {
-              "localize": ["en-US", "es"],
+              "localize": ["en", "es"],
               "budgets": [
                 {
                   "type": "initial",
