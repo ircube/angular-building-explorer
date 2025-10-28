@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/angular-building-explorer/browser",
+    "public": "dist/angular-building-explorer/browser/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -12,7 +12,7 @@
         "destination": "/es/index.html"
       },
       {
-        "source": "!/es/**",
+        "source": "**",
         "destination": "/en-US/index.html"
       }
     ]
