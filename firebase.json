@@ -1,29 +1,26 @@
 {
   "hosting": {
     "public": "dist/angular-building-explorer/browser",
-    "ignore": [
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["**/.*", "**/node_modules/**"],
     "i18n": {
       "root": "/"
     },
     "rewrites": [
       {
         "source": "/es{,/**}",
-        "destination": "/es/index.html",
+        "destination": "/es/index.html"
       },
       {
         "source": "/en{,/**}",
-        "destination": "/en/index.html",
+        "destination": "/en/index.html"
       },
       {
         "source": "/**",
-        "destination": "/en/index.html",
+        "destination": "/en/index.html"
       },
       {
         "source": "**",
-        "destination": "/en/index.html",
+        "destination": "/en/index.html"
       }
     ],
     "redirects": [
