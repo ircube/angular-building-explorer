@@ -10,12 +10,20 @@
     },
     "rewrites": [
       {
-        "source": "/es/**",
-        "destination": "/es/index.html"
+        "source": "/es{,/**}",
+        "destination": "/es/index.html",
+      },
+      {
+        "source": "/en{,/**}",
+        "destination": "/en/index.html",
+      },
+      {
+        "source": "/**",
+        "destination": "/en/index.html",
       },
       {
         "source": "**",
-        "destination": "/en/index.html"
+        "destination": "/en/index.html",
       }
     ],
     "redirects": [
