@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/angular-building-explorer/browser",
+    "public": "dist/angular-building-explorer",
     "ignore": [
       "**/.*",
       "**/node_modules/**"
