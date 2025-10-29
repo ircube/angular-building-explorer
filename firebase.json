@@ -1,10 +1,13 @@
 {
   "hosting": {
-    "public": "dist/angular-building-explorer",
+    "public": "dist/angular-building-explorer/browser",
     "ignore": [
       "**/.*",
       "**/node_modules/**"
     ],
+    "i18n": {
+      "root": "/"
+    },
     "rewrites": [
       {
         "source": "/es/**",
