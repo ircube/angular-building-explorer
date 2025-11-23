@@ -1,9 +1,9 @@
 <nav>
   <div>
-    <a routerLink="/landing" routerLinkActive="active" i18n>Landing</a>
-    <a routerLink="/buildings" routerLinkActive="active" i18n>Buildings</a>
-    <a routerLink="/viewer" routerLinkActive="active" i18n>Viewer</a>
-    <a routerLink="/contact" routerLinkActive="active" i18n>Contact</a>
+    <a routerLink="/landing" routerLinkActive="active">{{ 'menu.landing' | translate }}</a>
+    <a routerLink="/buildings" routerLinkActive="active">{{ 'menu.buildings' | translate }}</a>
+    <a routerLink="/viewer" routerLinkActive="active">{{ 'menu.viewer' | translate }}</a>
+    <a routerLink="/contact" routerLinkActive="active">{{ 'menu.contact' | translate }}</a>
   </div>
   <div class="right">
     <button class="language-button" (click)="switchLanguage('en')">EN</button>

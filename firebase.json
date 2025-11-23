@@ -11,23 +11,12 @@
         "destination": "/es/index.html"
       },
       {
-        "source": "/en{,/**}",
-        "destination": "/en/index.html"
-      },
-      {
         "source": "/**",
-        "destination": "/en/index.html"
+        "destination": "/index.html"
       },
       {
         "source": "**",
-        "destination": "/en/index.html"
-      }
-    ],
-    "redirects": [
-      {
-        "source": "/",
-        "destination": "/en",
-        "type": 302
+        "destination": "/index.html"
       }
     ]
   }

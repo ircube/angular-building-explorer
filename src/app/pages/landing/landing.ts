@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { CounterService } from '../../stores/counter.service';
+import { TranslatePipe } from '../../i18n.pipe';
 
 @Component({
   selector: 'app-landing',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './landing.html',
   styleUrl: './landing.scss'
 })

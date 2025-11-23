@@ -1,0 +1,12 @@
+{
+  "menu": {
+    "buildings": "Edificios",
+    "viewer": "Visor",
+    "contact": "Contacto",
+    "landing": "Inicio"
+  },
+  "landing": {
+    "title": "Bienvenido a Angular Building Explorer",
+    "subtitle": "Tu solución moderna para la exploración de edificios."
+  }
+}

@@ -4,12 +4,6 @@
   "newProjectRoot": "projects",
   "projects": {
     "angular-building-explorer": {
-      "i18n": {
-        "sourceLocale": "en",
-        "locales": {
-          "es": "src/locale/messages.es.json"
-        }
-      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,8 +17,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-             "outputPath": "dist/angular-building-explorer",
-            "localize": true,
+            "outputPath": "dist/angular-building-explorer",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -32,18 +25,14 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/assets"
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "polyfills": [
-              "@angular/localize/init"
-            ]
+            "styles": ["src/styles.scss"],
+            "polyfills": ["@angular/localize/init"]
           },
           "configurations": {
             "production": {
-              "localize": ["en", "es"],
               "budgets": [
                 {
                   "type": "initial",
@@ -61,11 +50,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
-              "localize": true
-            },
-            "es": {
-              "localize": ["es"]
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -78,9 +63,6 @@
             },
             "development": {
               "buildTarget": "angular-building-explorer:build:development"
-            },
-            "es": {
-              "buildTarget": "angular-building-explorer:build:development,es"
             }
           },
           "defaultConfiguration": "development"
@@ -97,14 +79,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/assets"
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "polyfills": [
-              "@angular/localize/init"
-            ]
+            "styles": ["src/styles.scss"],
+            "polyfills": ["@angular/localize/init"]
           }
         },
         "lint": {
