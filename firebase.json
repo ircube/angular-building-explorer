@@ -2,18 +2,7 @@
   "hosting": {
     "public": "dist/angular-building-explorer/browser",
     "ignore": ["**/.*", "**/node_modules/**"],
-    "i18n": {
-      "root": "/"
-    },
     "rewrites": [
-      {
-        "source": "/es{,/**}",
-        "destination": "/es/index.html"
-      },
-      {
-        "source": "/**",
-        "destination": "/index.html"
-      },
       {
         "source": "**",
         "destination": "/index.html"

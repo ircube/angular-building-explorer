@@ -4,10 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "npm run build:i18n-others",
-    "build:i18n-others": "ng build --configuration production-i18n",
-    "postbuild:i18n-others": "npm run move-default-files",
-    "move-default-files": "mv| dist/angular-building-explorer/browser/en/* dist/angular-building-explorer/browser/ && rm -rf dist/angular-building-explorer/browser/en",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
