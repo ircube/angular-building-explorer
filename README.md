@@ -1,6 +1,6 @@
 # AngularBuildingExplorer
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.4.
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.0.
 
 ## Development server
 
@@ -25,19 +25,6 @@ For a complete list of available schematics (such as `components`, `directives`,
 ```bash
 ng generate --help
 ```
-
-## Internationalization
-Extract i18n:
-```bash
-ng extract-i18n --format=json --output-path src/locale
-```
-
-Serve:
-```bash
-ng serve --configuration=es
-```
-
-
 
 ## Building
 
