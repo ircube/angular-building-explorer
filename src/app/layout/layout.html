@@ -1,6 +1,6 @@
 <!-- src/app/layout/layout.html -->
 <div class="layout-container" [class.dark-theme]="isDarkTheme()">
-  <header>
+  <header #headerElement>
     <h1>{{ 'APP_TITLE' | translate | async }}</h1>
     <nav>
       <button (click)="setLanguage('en')" [class.active]="currentLanguage() === 'en'">EN</button>

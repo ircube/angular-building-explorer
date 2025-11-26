@@ -1,6 +1,6 @@
 /* src/app/layout/layout.scss */
 .layout-container {
-  min-height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   background-color: #f0f2f5; // Light mode background
@@ -17,10 +17,11 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 0.5rem 1rem; /* Reduced padding */
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem; /* Reduced margin */
+  height: fit-content; /* Ensure header only takes content height */
 }
 
 .layout-container.dark-theme header {
@@ -60,7 +61,17 @@ nav button.active {
   background-color: #888;
 }
 
+.layout-container {
+  height: 100%; /* Ensure layout-container itself fills the viewport */
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f2f5; // Light mode background
+  color: #333; // Light mode text color
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 main {
   flex-grow: 1;
-  padding: 1rem 2rem;
+  height: calc(100vh - var(--header-height, 0px)); /* Dynamic height calculation */
+  overflow: hidden; /* Prevent main's content from causing scrollbar */
 }

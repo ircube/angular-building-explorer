@@ -1,4 +1,7 @@
-<div>
-  <h2>{{ 'LANDING_PAGE_TITLE' | translate | async }}</h2>
-  <p>{{ 'LANDING_PAGE_CONTENT' | translate | async }}</p>
+<div class="landing-container">
+  <app-three-d-viewer></app-three-d-viewer>
+  <div class="welcome-message-overlay">
+    <h2>{{ 'LANDING_PAGE_TITLE' | translate | async }}</h2>
+    <p>{{ 'LANDING_PAGE_CONTENT' | translate | async }}</p>
+  </div>
 </div>

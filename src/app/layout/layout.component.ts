@@ -1,5 +1,5 @@
 // src/app/layout/layout.component.ts
-import { Component, OnInit, WritableSignal } from '@angular/core';
+import { Component, OnInit, WritableSignal, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { I18nService } from '../i18n.service';
@@ -13,7 +13,9 @@ import { ThemeService } from '../theme.service';
   templateUrl: './layout.html',
   styleUrls: ['./layout.scss']
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent implements OnInit, AfterViewInit { // Implement AfterViewInit
+  @ViewChild('headerElement') headerElement!: ElementRef; // Reference to the header element
+
   currentLanguage: WritableSignal<'en' | 'es'>;
   isDarkTheme: WritableSignal<boolean>;
 
@@ -27,6 +29,22 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit(): void {
     // Optionally, any initialization logic
+  }
+
+  ngAfterViewInit(): void {
+    this.updateHeaderHeight();
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    this.updateHeaderHeight();
+  }
+
+  private updateHeaderHeight(): void {
+    if (this.headerElement) {
+      const headerHeight = this.headerElement.nativeElement.offsetHeight;
+      document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+    }
   }
 
   setLanguage(language: 'en' | 'es'): void {
