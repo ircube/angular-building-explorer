@@ -1,0 +1,66 @@
+/* src/app/layout/layout.scss */
+.layout-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f2f5; // Light mode background
+  color: #333; // Light mode text color
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.layout-container.dark-theme {
+  background-color: #333; // Dark mode background
+  color: #f0f2f5; // Dark mode text color
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+}
+
+.layout-container.dark-theme header {
+  background-color: #222;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+nav button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+nav button:hover {
+  background-color: #0056b3;
+}
+
+nav button.active {
+  background-color: #0056b3;
+  font-weight: bold;
+}
+
+.layout-container.dark-theme nav button {
+  background-color: #666;
+}
+
+.layout-container.dark-theme nav button:hover {
+  background-color: #888;
+}
+
+.layout-container.dark-theme nav button.active {
+  background-color: #888;
+}
+
+main {
+  flex-grow: 1;
+  padding: 1rem 2rem;
+}

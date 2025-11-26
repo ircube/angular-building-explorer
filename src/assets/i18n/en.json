@@ -1,0 +1,11 @@
+{
+  "APP_TITLE": "Angular Building Explorer",
+  "LANDING_PAGE_TITLE": "Welcome to the Landing Page",
+  "LANDING_PAGE_CONTENT": "This is the content for the landing page in English.",
+  "BUILDINGS_PAGE_TITLE": "Our Buildings",
+  "BUILDINGS_PAGE_CONTENT": "Explore our amazing buildings in English.",
+  "VIEWER_PAGE_TITLE": "3D Viewer",
+  "VIEWER_PAGE_CONTENT": "Interact with our 3D models in English.",
+  "CONTACT_PAGE_TITLE": "Contact Us",
+  "CONTACT_PAGE_CONTENT": "Get in touch with us in English."
+}
