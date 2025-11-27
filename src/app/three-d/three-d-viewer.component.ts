@@ -77,7 +77,7 @@ export class ThreeDViewerComponent implements OnInit, OnDestroy, AfterViewInit {
   initScene(): void {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xaaaaaa);
-    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2000);
     this.camera.position.set(0, 50, 100);
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -139,22 +139,57 @@ export class ThreeDViewerComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   setupTouchControls(): void {
-    // Hide blocker on mobile since pointer lock isn't used
     if (this.blockerElement) {
       this.blockerElement.nativeElement.style.display = 'none';
     }
 
-    // Virtual Joystick logic
     if (this.joystickLeft && this.joystickRight) {
       const joystickLeftEl = this.joystickLeft.nativeElement;
-      const joystickLeftHandleEl = joystickLeftEl.querySelector('.joystick-handle') as HTMLElement; // Get handle
-      const joystickRightEl = this.joystickRight.nativeElement; // Keeping this for potential future use or camera look
+      const joystickLeftHandleEl = joystickLeftEl.querySelector('.joystick-handle') as HTMLElement;
+      const joystickRightEl = this.joystickRight.nativeElement;
+      const joystickRightHandleEl = joystickRightEl.querySelector('.joystick-handle') as HTMLElement;
 
-      // Left joystick for movement
-      let leftActiveTouchId: number | null = null; // Track active touch for left joystick
+      let leftActiveTouchId: number | null = null;
+      let rightActiveTouchId: number | null = null;
+      let previousTouchX: number; // For right joystick camera rotation
+      let previousTouchY: number; // For right joystick camera rotation
 
+      // Helper to calculate joystick handle position and update movement
+      const updateJoystick = (
+        touch: Touch,
+        joystickEl: HTMLElement,
+        joystickHandleEl: HTMLElement,
+        joystickPos: { x: number, y: number },
+        isLeftJoystick: boolean
+      ) => {
+        const rect = joystickEl.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        joystickPos.x = (touch.clientX - centerX) / (rect.width / 2);
+        joystickPos.y = (touch.clientY - centerY) / (rect.height / 2);
+
+        // Limit handle movement within joystick bounds
+        const maxDistance = rect.width / 2;
+        const distance = Math.min(maxDistance, Math.sqrt(
+          Math.pow(touch.clientX - centerX, 2) + Math.pow(touch.clientY - centerY, 2)
+        ));
+        const angle = Math.atan2(touch.clientY - centerY, touch.clientX - centerX);
+        const handleX = Math.cos(angle) * distance;
+        const handleY = Math.sin(angle) * distance;
+
+        if (joystickHandleEl) {
+          joystickHandleEl.style.transform = `translate3d(${handleX}px, ${handleY}px, 0)`;
+        }
+
+        if (isLeftJoystick) {
+          this.updateMovementFromJoystick(joystickPos);
+        }
+      };
+
+      // Left Joystick Event Listeners
       joystickLeftEl.addEventListener('touchstart', (event: TouchEvent) => {
-        event.preventDefault(); // Prevent default browser actions like scrolling
+        event.preventDefault();
         if (leftActiveTouchId !== null) return; // Only process if no active touch on left joystick
 
         for (let i = 0; i < event.changedTouches.length; i++) {
@@ -163,27 +198,8 @@ export class ThreeDViewerComponent implements OnInit, OnDestroy, AfterViewInit {
           if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
               touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
             leftActiveTouchId = touch.identifier;
-            
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-
-            this.joystickLeftPos.x = (touch.clientX - centerX) / (rect.width / 2);
-            this.joystickLeftPos.y = (touch.clientY - centerY) / (rect.height / 2);
-
-            // Limit handle movement within joystick bounds
-            const maxDistance = rect.width / 2;
-            const distance = Math.min(maxDistance, Math.sqrt(
-              Math.pow(touch.clientX - centerX, 2) + Math.pow(touch.clientY - centerY, 2)
-            ));
-            const angle = Math.atan2(touch.clientY - centerY, touch.clientX - centerX);
-            const handleX = Math.cos(angle) * distance;
-            const handleY = Math.sin(angle) * distance;
-
-            if (joystickLeftHandleEl) {
-              joystickLeftHandleEl.style.transform = `translate3d(${handleX}px, ${handleY}px, 0)`;
-            }
-            this.updateMovementFromJoystick(this.joystickLeftPos);
-            break; // Process only the first relevant touch
+            updateJoystick(touch, joystickLeftEl, joystickLeftHandleEl, this.joystickLeftPos, true);
+            break;
           }
         }
       }, { passive: false });
@@ -195,26 +211,7 @@ export class ThreeDViewerComponent implements OnInit, OnDestroy, AfterViewInit {
         for (let i = 0; i < event.changedTouches.length; i++) {
           const touch = event.changedTouches[i];
           if (touch.identifier === leftActiveTouchId) {
-            const rect = joystickLeftEl.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-
-            this.joystickLeftPos.x = (touch.clientX - centerX) / (rect.width / 2);
-            this.joystickLeftPos.y = (touch.clientY - centerY) / (rect.height / 2);
-
-            // Limit handle movement within joystick bounds
-            const maxDistance = rect.width / 2;
-            const distance = Math.min(maxDistance, Math.sqrt(
-              Math.pow(touch.clientX - centerX, 2) + Math.pow(touch.clientY - centerY, 2)
-            ));
-            const angle = Math.atan2(touch.clientY - centerY, touch.clientX - centerX);
-            const handleX = Math.cos(angle) * distance;
-            const handleY = Math.sin(angle) * distance;
-
-            if (joystickLeftHandleEl) {
-              joystickLeftHandleEl.style.transform = `translate3d(${handleX}px, ${handleY}px, 0)`;
-            }
-            this.updateMovementFromJoystick(this.joystickLeftPos);
+            updateJoystick(touch, joystickLeftEl, joystickLeftHandleEl, this.joystickLeftPos, true);
             break;
           }
         }
@@ -229,7 +226,7 @@ export class ThreeDViewerComponent implements OnInit, OnDestroy, AfterViewInit {
             this.joystickLeftPos.x = 0;
             this.joystickLeftPos.y = 0;
             if (joystickLeftHandleEl) {
-              joystickLeftHandleEl.style.transform = `translate3d(0px, 0px, 0)`; // Reset handle position
+              joystickLeftHandleEl.style.transform = `translate3d(0px, 0px, 0)`;
             }
             this.updateMovementFromJoystick(this.joystickLeftPos);
             break;
@@ -237,96 +234,64 @@ export class ThreeDViewerComponent implements OnInit, OnDestroy, AfterViewInit {
         }
       });
 
-      // Right joystick for looking around
-      const joystickRightHandleEl = joystickRightEl.querySelector('.joystick-handle') as HTMLElement; // Get handle
-      let rightActiveTouchId: number | null = null; // Track active touch for right joystick
-      let previousTouchX: number;
-      let previousTouchY: number;
+      // Right Joystick Event Listeners
+      joystickRightEl.addEventListener('touchstart', (event: TouchEvent) => {
+        event.preventDefault();
+        if (rightActiveTouchId !== null) return; // Only process if no active touch on right joystick
 
-      if (joystickRightHandleEl) { // Added check
-        joystickRightEl.addEventListener('touchstart', (event: TouchEvent) => {
-            event.preventDefault();
-            if (rightActiveTouchId !== null) return; // Only process if no active touch on right joystick
+        for (let i = 0; i < event.changedTouches.length; i++) {
+          const touch = event.changedTouches[i];
+          const rect = joystickRightEl.getBoundingClientRect();
+          if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
+              touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
+            rightActiveTouchId = touch.identifier;
+            previousTouchX = touch.clientX;
+            previousTouchY = touch.clientY;
 
-            for (let i = 0; i < event.changedTouches.length; i++) {
-              const touch = event.changedTouches[i];
-              const rect = joystickRightEl.getBoundingClientRect();
-              if (touch.clientX >= rect.left && touch.clientX <= rect.right &&
-                  touch.clientY >= rect.top && touch.clientY <= rect.bottom) {
-                rightActiveTouchId = touch.identifier;
-                
-                previousTouchX = touch.clientX;
-                previousTouchY = touch.clientY;
+            updateJoystick(touch, joystickRightEl, joystickRightHandleEl, { x: 0, y: 0 }, false); // Use temp pos, not this.joystickRightPos directly for visual
+            break;
+          }
+        }
+      }, { passive: false });
 
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const currentX = touch.clientX - centerX;
-                const currentY = touch.clientY - centerY;
+      joystickRightEl.addEventListener('touchmove', (event: TouchEvent) => {
+        event.preventDefault();
+        if (rightActiveTouchId === null) return;
 
-                if (joystickRightHandleEl) {
-                    joystickRightHandleEl.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
-                }
-                break; // Process only the first relevant touch
-              }
+        for (let i = 0; i < event.changedTouches.length; i++) {
+          const touch = event.changedTouches[i];
+          if (touch.identifier === rightActiveTouchId) {
+            const deltaX = touch.clientX - previousTouchX;
+            const deltaY = touch.clientY - previousTouchY;
+
+            this.camera.rotation.y -= deltaX * 0.01;
+            this.camera.rotation.x -= deltaY * 0.01;
+
+            const PI_2 = Math.PI / 2;
+            this.camera.rotation.x = Math.max(-PI_2, Math.min(PI_2, this.camera.rotation.x));
+
+            previousTouchX = touch.clientX;
+            previousTouchY = touch.clientY;
+
+            updateJoystick(touch, joystickRightEl, joystickRightHandleEl, { x: 0, y: 0 }, false); // Use temp pos, not this.joystickRightPos directly for visual
+            break;
+          }
+        }
+      }, { passive: false });
+
+      joystickRightEl.addEventListener('touchend', (event: TouchEvent) => {
+        event.preventDefault();
+        for (let i = 0; i < event.changedTouches.length; i++) {
+          const touch = event.changedTouches[i];
+          if (touch.identifier === rightActiveTouchId) {
+            rightActiveTouchId = null;
+            if (joystickRightHandleEl) {
+                joystickRightHandleEl.style.transform = `translate3d(0px, 0px, 0)`;
             }
-        }, { passive: false });
-
-        joystickRightEl.addEventListener('touchmove', (event: TouchEvent) => {
-            event.preventDefault();
-            if (rightActiveTouchId === null) return;
-
-            for (let i = 0; i < event.changedTouches.length; i++) {
-              const touch = event.changedTouches[i];
-              if (touch.identifier === rightActiveTouchId) {
-                const deltaX = touch.clientX - previousTouchX;
-                const deltaY = touch.clientY - previousTouchY;
-
-                            this.camera.rotation.y -= deltaX * 0.01; // Adjust sensitivity
-                            this.camera.rotation.x -= deltaY * 0.01; // Adjust sensitivity
-                // Limit vertical rotation (pitch) to prevent camera flipping
-                const PI_2 = Math.PI / 2;
-                this.camera.rotation.x = Math.max(-PI_2, Math.min(PI_2, this.camera.rotation.x));
-
-                previousTouchX = touch.clientX;
-                previousTouchY = touch.clientY;
-
-                // Visual feedback for joystick handle
-                const rect = joystickRightEl.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const currentX = touch.clientX - centerX;
-                const currentY = touch.clientY - centerY;
-
-                const maxDistance = rect.width / 2;
-                const distance = Math.min(maxDistance, Math.sqrt(
-                  Math.pow(currentX, 2) + Math.pow(currentY, 2)
-                ));
-                const angle = Math.atan2(currentY, currentX);
-                const handleX = Math.cos(angle) * distance;
-                const handleY = Math.sin(angle) * distance;
-
-                if (joystickRightHandleEl) {
-                    joystickRightHandleEl.style.transform = `translate3d(${handleX}px, ${handleY}px, 0)`;
-                }
-                break;
-              }
-            }
-        }, { passive: false });
-
-        joystickRightEl.addEventListener('touchend', (event: TouchEvent) => {
-            event.preventDefault();
-            for (let i = 0; i < event.changedTouches.length; i++) {
-              const touch = event.changedTouches[i];
-              if (touch.identifier === rightActiveTouchId) {
-                rightActiveTouchId = null;
-                if (joystickRightHandleEl) {
-                    joystickRightHandleEl.style.transform = `translate3d(0px, 0px, 0)`; // Reset handle position
-                }
-                break;
-              }
-            }
-        });
-      }
+            break;
+          }
+        }
+      });
     }
   }
 
@@ -400,7 +365,27 @@ export class ThreeDViewerComponent implements OnInit, OnDestroy, AfterViewInit {
     loader.load(
       'assets/models/island/scene.gltf', // Path to your GLTF model
       (gltf: GLTF) => {
-        this.model = gltf.scene;
+        console.log('GLTF model loaded successfully!', gltf);
+        this.model = gltf.scene; // Assign gltf.scene to this.model first
+        this.model.traverse((object) => {
+                      if ((object as THREE.Mesh).isMesh) {
+                        const mesh = object as THREE.Mesh;
+                        console.log('Found mesh:', mesh.name, 'with material(s):', mesh.material); // Log found mesh
+                        mesh.castShadow = true;
+                        mesh.receiveShadow = true;
+          
+                        // Ensure materials render both sides to prevent seeing through objects
+                        if (Array.isArray(mesh.material)) {
+                          mesh.material.forEach(material => {
+                            material.side = THREE.DoubleSide;
+                            console.log('  Applied DoubleSide to material:', material); // Log material modification
+                          });
+                        } else {
+                          mesh.material.side = THREE.DoubleSide;
+                          console.log('  Applied DoubleSide to material:', mesh.material); // Log material modification
+                        }
+                      }        });
+
         this.scene.add(this.model);
 
         // Optional: Adjust model scale and position if needed

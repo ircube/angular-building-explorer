@@ -57,3 +57,22 @@
   background-color: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.9);
 }
+
+/* Styles for GLTF model credits/legend (speculative) */
+/* These are common class names used by GLTFLoader or tools that add credits */
+.gltf-credits, .model-credits, .sketchfab-credits, .credits-info {
+  position: absolute !important;
+  bottom: 5px !important;
+  left: 5px !important;
+  font-size: 0.5rem !important; /* Very small font size */
+  color: #cccccc !important; /* Muted color */
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  padding: 2px 5px !important;
+  border-radius: 3px !important;
+  z-index: 9999 !important; /* Ensure it's on top */
+}
+
+/* If the element is added directly to the body by the loader */
+body > .gltf-credits, body > .model-credits, body > .sketchfab-credits, body > .credits-info {
+  position: fixed !important; /* Use fixed if appended to body */
+}
