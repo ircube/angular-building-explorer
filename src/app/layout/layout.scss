@@ -75,3 +75,77 @@ main {
   height: calc(100vh - var(--header-height, 0px)); /* Dynamic height calculation */
   overflow: hidden; /* Prevent main's content from causing scrollbar */
 }
+
+.options-selector-container {
+  position: relative;
+  display: inline-block;
+}
+
+.options-toggle-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem; /* Adjust as needed for icon size */
+  cursor: pointer;
+  color: #333; /* Default icon color */
+  padding: 0.5rem;
+}
+
+.layout-container.dark-theme .options-toggle-button {
+  color: #f0f2f5; /* Dark theme icon color */
+}
+
+.options-dropdown {
+  position: absolute;
+  top: 100%; /* Position below the toggle button */
+  right: 0; /* Align to the right of the toggle button */
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  min-width: 150px;
+  z-index: 1000; /* Ensure it's above other content */
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+.layout-container.dark-theme .options-dropdown {
+  background-color: #444;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.options-dropdown button {
+  background: none;
+  border: none;
+  padding: 0.8rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.2s ease;
+  border-radius: 3px;
+  margin-bottom: 0.2rem; /* Spacing between buttons */
+}
+
+.options-dropdown button:last-child {
+  margin-bottom: 0;
+}
+
+.options-dropdown button:hover {
+  background-color: #f0f0f0;
+}
+
+.options-dropdown button.active {
+  font-weight: bold;
+  background-color: #e0e0e0;
+}
+
+.layout-container.dark-theme .options-dropdown button {
+  color: #f0f2f5;
+}
+
+.layout-container.dark-theme .options-dropdown button:hover {
+  background-color: #666;
+}
+
+.layout-container.dark-theme .options-dropdown button.active {
+  background-color: #555;
+}

@@ -13,11 +13,12 @@ import { ThemeService } from '../theme.service';
   templateUrl: './layout.html',
   styleUrls: ['./layout.scss']
 })
-export class LayoutComponent implements OnInit, AfterViewInit { // Implement AfterViewInit
+export class LayoutComponent implements OnInit, AfterViewInit {
   @ViewChild('headerElement') headerElement!: ElementRef; // Reference to the header element
 
   currentLanguage: WritableSignal<'en' | 'es'>;
   isDarkTheme: WritableSignal<boolean>;
+  showOptionsSelector: boolean = false; // New property to control visibility of options dropdown
 
   constructor(
     private i18nService: I18nService,
@@ -53,5 +54,21 @@ export class LayoutComponent implements OnInit, AfterViewInit { // Implement Aft
 
   toggleTheme(): void {
     this.themeService.toggleTheme();
+  }
+
+  toggleOptionsSelector(event: Event): void {
+    this.showOptionsSelector = !this.showOptionsSelector;
+    event.stopPropagation(); // Prevent document click from immediately closing it
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    // Close the selector if clicked outside
+    // Check if the click event target is outside the options selector.
+    // This is a simplified check. More robust would be to use ElementRef and contains().
+    // For now, assuming the click outside handles it generally.
+    if (this.showOptionsSelector) {
+      this.showOptionsSelector = false;
+    }
   }
 }

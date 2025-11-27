@@ -2,13 +2,16 @@
 <div class="layout-container" [class.dark-theme]="isDarkTheme()">
   <header #headerElement>
     <h1>{{ 'APP_TITLE' | translate | async }}</h1>
-    <nav>
-      <button (click)="setLanguage('en')" [class.active]="currentLanguage() === 'en'">EN</button>
-      <button (click)="setLanguage('es')" [class.active]="currentLanguage() === 'es'">ES</button>
-      <button (click)="toggleTheme()">
-        {{ isDarkTheme() ? 'Light Mode' : 'Dark Mode' }}
-      </button>
-    </nav>
+    <div class="options-selector-container">
+      <button class="options-toggle-button" (click)="toggleOptionsSelector($event)">⚙️</button>
+      <div class="options-dropdown" *ngIf="showOptionsSelector">
+        <button (click)="setLanguage('en')" [class.active]="currentLanguage() === 'en'">EN</button>
+        <button (click)="setLanguage('es')" [class.active]="currentLanguage() === 'es'">ES</button>
+        <button (click)="toggleTheme()">
+          {{ isDarkTheme() ? 'Light Mode' : 'Dark Mode' }}
+        </button>
+      </div>
+    </div>
   </header>
   <main>
     <router-outlet></router-outlet>
