@@ -1,1 +1,17 @@
-<div #rendererContainer class="three-d-container"></div>
+<div #rendererContainer class="three-d-container">
+  <div #blockerElement class="blocker" *ngIf="!isMobile">
+    <div class="instructions">
+      <p>Click to play</p>
+      <p>W, A, S, D = move, Mouse = look</p>
+    </div>
+  </div>
+
+  <div class="joystick-container" *ngIf="isMobile">
+    <div #joystickLeft class="joystick left">
+      <div class="joystick-handle"></div>
+    </div>
+    <div #joystickRight class="joystick right">
+      <div class="joystick-handle"></div>
+    </div>
+  </div>
+</div>
